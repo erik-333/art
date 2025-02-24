@@ -1,4 +1,4 @@
-# Decoder
+# Diamond Decoder
 
 Command line tool for decoding and encoding. Encoded text can be decoded into ASCII art and vice versa.
 
@@ -8,10 +8,6 @@ Command line tool for decoding and encoding. Encoded text can be decoded into AS
 - Support for multiline input.
 - Can double the size of given input in real-time
 - Handles errors effectively and in-depth
-
-## Technologies used
-
-- Go used for logic
 
 ## Installation
 
