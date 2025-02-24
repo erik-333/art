@@ -5,7 +5,6 @@ import (
 	"strings"
 )
 
-// encode function compresses repeating sequences into [n seq] format
 // this function works as following, it checks length of repeating sequences by checking how many times ;
 // you can repeat a certain length, it keeps checking if longer sequences are possible, if not it will ;
 // output the current sequence, if it finds a longer sequence it will output that instead. :DD ;

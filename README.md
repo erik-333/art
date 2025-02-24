@@ -34,6 +34,17 @@ cd decoder
 go run . <flags and input>
 ````
 
+If you want to you can also build the project:
+
+````
+go build -o diamond-decoder
+````
+
+Then run it by doing the following:
+````
+./diamond-decoder -de -2x '[5 A]'
+````
+
 ## Usage
 
 You can also use a flag to display the usage in the tool
