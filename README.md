@@ -30,7 +30,7 @@ cd art
 cd decoder
 go run . <flags and input>
 ````
-
+## Build the project (Optional), otherwise skip to Usage
 If you want to you can also build the project:
 
 ````
