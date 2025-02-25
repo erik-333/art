@@ -14,8 +14,9 @@ Command line tool for decoding and encoding. Encoded text can be decoded into AS
 ### Prerequisites
 
 Before running the tool, make sure you have the following installed and or updated:
-    - Go (1.18 or later)
-    - Git (for cloning the repo)
+
+- Go (1.18 or later)
+- Git (for cloning the repo)
 
 ### Steps to use and run
 
