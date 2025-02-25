@@ -48,7 +48,7 @@ You can also use a flag to display the usage in the tool
 go run . -h
 ````
 
-### Encoding text
+### Encoded text
 - Encoded patterns have to be inside brackets, if brackets are mismatched it will return an error
 - There are two arguments inside those brackets, separated by a SINGLE space. Everything proceding will be considered part of the pattern to be expanded
 - First argument has to be a number, otherwise it is invalid
