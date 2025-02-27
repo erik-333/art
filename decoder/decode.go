@@ -14,20 +14,36 @@ var ptrn = regexp.MustCompile(`\[(\d+) ([^\]]+)]`)
 // pattern for validation and error handling
 var validatePtrn = regexp.MustCompile(`\[(\S+)\s+(.+?)\]`)
 
+// pattern for empty 2nd arg checking
+var emptySecondArgPattern = regexp.MustCompile(`\[\d+\s+\]`)
+
+// pattern for input without space
+var noSpacePattern = regexp.MustCompile(`\[\d+[^\s\]]+\]`)
+
 func decode(input string) (string, error) {
 	// remove all escape characters from the input
 	input = strings.TrimPrefix(input, "\x1b")
 
 	// check for mismatched brackets
 	if strings.Count(input, "[") != strings.Count(input, "]") {
-		return "", fmt.Errorf(red + "Error! :O , mismatched brackets in input" + reset)
+		return "", fmt.Errorf("%s", red+"Error! :O , mismatched brackets in input"+reset)
+	}
+
+	// Check if the input contains a pattern without space between arguments
+	if noSpacePattern.MatchString(input) {
+		return "", fmt.Errorf("%s", red+"Error! :O , arguments not separated by space"+reset)
+	}
+
+	// Check for empty second argument
+	if emptySecondArgPattern.MatchString(input) {
+		return "", fmt.Errorf("%s", red+"Error! :O , empty second argument"+reset)
 	}
 
 	// first do validation using validatePtrn
 	for _, match := range validatePtrn.FindAllStringSubmatch(input, -1) {
 		if len(match) == 3 {
 			if _, err := strconv.Atoi(match[1]); err != nil {
-				return "", fmt.Errorf(red + "Error! :O , first argument must be a number\n" + reset)
+				return "", fmt.Errorf("%s", red+"Error! :O , first argument must be a number\n"+reset)
 			}
 		}
 	}
@@ -36,7 +52,7 @@ func decode(input string) (string, error) {
 	result := ptrn.ReplaceAllStringFunc(input, func(match string) string {
 		matches := ptrn.FindStringSubmatch(match)
 		if len(matches) != 3 {
-			return red + "Error! :O , invalid pattern format" + reset
+			fmt.Println(red + "Error! :O , invalid pattern format" + reset)
 		}
 
 		count, err := strconv.Atoi(matches[1])
