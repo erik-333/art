@@ -42,6 +42,12 @@ func main() {
 	var input string
 	if *multiflag {
 		input = multiLine()
+		// check if any input
+		if len(input) == 0 || (len(input) == 1 && input == "") {
+			fmt.Println(red + "No input provided\n" + reset)
+			return
+		}
+
 	} else if len(args) > 0 {
 		input = args[0]
 	}
