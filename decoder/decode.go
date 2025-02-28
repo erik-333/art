@@ -14,11 +14,14 @@ var ptrn = regexp.MustCompile(`\[(\d+) ([^\]]+)]`)
 // pattern for validation and error handling
 var validatePtrn = regexp.MustCompile(`\[(\S+)\s+(.+?)\]`)
 
-// pattern for empty 2nd arg checking
+// pattern for empty 2nd arg checking (eg. [2 ])
 var emptySecondArgPattern = regexp.MustCompile(`\[\d+\s+\]`)
 
 // pattern for input without space
 var noSpacePattern = regexp.MustCompile(`\[\d+[^\s\]]+\]`)
+
+// pattern for single argument (eg. [2])
+var singleArgPattern = regexp.MustCompile(`\[\d+\]`)
 
 func decode(input string) (string, error) {
 	// remove all escape characters from the input
@@ -37,6 +40,10 @@ func decode(input string) (string, error) {
 	// Check for empty second argument
 	if emptySecondArgPattern.MatchString(input) {
 		return "", fmt.Errorf("%s", red+"Error! :O , empty second argument"+reset)
+	}
+
+	if singleArgPattern.MatchString(input) {
+		return "", fmt.Errorf("%s", red+"Error! :O, empty second argument"+reset)
 	}
 
 	// first do validation using validatePtrn
