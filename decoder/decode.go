@@ -12,7 +12,11 @@ import (
 var ptrn = regexp.MustCompile(`\[(\d+) ([^\]]+)]`)
 
 // pattern for validation and error handling
-var validatePtrn = regexp.MustCompile(`\[(\S+)\s+(.+?)\]`)
+// old pattern below
+// var validatePtrn = regexp.MustCompile(`\[(\S+)\s+(.+?)\]`)
+
+// New and improved pattern
+var validatePtrn = regexp.MustCompile(`\[(\S+)(?:\s*)?\]`)
 
 // pattern for empty 2nd arg checking (eg. [2 ])
 var emptySecondArgPattern = regexp.MustCompile(`\[\d+\s+\]`)
@@ -43,15 +47,18 @@ func decode(input string) (string, error) {
 	}
 
 	if singleArgPattern.MatchString(input) {
-		return "", fmt.Errorf("%s", red+"Error! :O, empty second argument"+reset)
+		return "", fmt.Errorf("%s", red+"Error! :O , empty second argument"+reset)
 	}
 
 	// first do validation using validatePtrn
-	for _, match := range validatePtrn.FindAllStringSubmatch(input, -1) {
-		if len(match) == 3 {
-			if _, err := strconv.Atoi(match[1]); err != nil {
-				return "", fmt.Errorf("%s", red+"Error! :O , first argument must be a number\n"+reset)
-			}
+	matches := validatePtrn.FindAllStringSubmatch(input, -1)
+	if len(matches) == 0 {
+		return "", fmt.Errorf("%s", red+"Error! :O , first argument must be a number"+reset)
+	}
+
+	for _, match := range matches {
+		if _, err := strconv.Atoi(match[1]); err != nil {
+			return "", fmt.Errorf("%s", red+"Error! :O , first argument must be a number\n"+reset)
 		}
 	}
 
