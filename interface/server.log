@@ -1,0 +1,10 @@
+2025/03/11 15:59:32 Starting server on port 8080
+2025/03/11 15:59:36 Request method: GET, URL: /
+2025/03/11 15:59:36 http: superfluous response.WriteHeader call from main.renderTemplate (main.go:123)
+2025/03/11 16:00:15 Starting server on port 8080
+2025/03/11 16:00:16 Request method: GET, URL: /
+2025/03/11 16:00:16 http: superfluous response.WriteHeader call from main.renderTemplate (main.go:123)
+2025/03/11 16:00:37 Starting server on port 8080
+2025/03/11 16:00:39 Request method: GET, URL: /
+2025/03/11 16:00:58 Request method: POST, URL: /decoder
+2025/03/11 16:00:58 Running command: [../decoder/shapes-decoder ]

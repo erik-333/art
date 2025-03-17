@@ -52,10 +52,6 @@ func decode(input string) (string, error) {
 
 	// first do validation using validatePtrn
 	matches := validatePtrn.FindAllStringSubmatch(input, -1)
-	if len(matches) == 0 {
-		return "", fmt.Errorf("%s", red+"Error! :O , first argument must be a number"+reset)
-	}
-
 	for _, match := range matches {
 		if _, err := strconv.Atoi(match[1]); err != nil {
 			return "", fmt.Errorf("%s", red+"Error! :O , first argument must be a number\n"+reset)

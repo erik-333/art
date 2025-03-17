@@ -1,0 +1,151 @@
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background-color: #b6c4cf;
+    background-image: url("images/background.jpg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: top center;
+}
+
+.container {
+    background-color: rgba(137, 167, 152, 0.1);
+    color: rgb(137, 167, 152);
+    max-width: 50%;
+    max-height: 100%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+textarea {
+    color: rgb(255, 255, 255);
+    background-position: center;
+    background-color: rgba(137, 167, 152, 0.5);
+    width: 98%;
+    min-height: 150px;
+    margin: 20px 0;
+    padding: 10px;
+}
+
+.results {
+    margin-top: 30px;
+}
+
+.art-output {
+    color: rgb(255, 255, 255);
+    background: rgba(137, 167, 152, 0.5);
+    padding: 20px;
+    overflow-x: auto;
+    white-space: pre;
+}
+
+.status-code {
+    color: rgb(137, 167, 152);
+    margin-bottom: 10px;
+}
+
+/* Mode selector styling */
+.mode-selector {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.radio-label span {
+    margin-left: 8px;
+    color: rgb(255, 255, 255);
+}
+
+/* Radio button styling */
+.input {
+    -webkit-appearance: none;
+    appearance: none;
+    display: block;
+    margin: 10px;
+    width: 24px;
+    height: 24px;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: hsla(0,0%,100%,.15) 0 1px 1px, inset hsla(0,0%,0%,.5) 0 0 0 1px;
+    background-color: hsla(0,0%,0%,.2);
+    background-image: -webkit-radial-gradient( 
+        hsla(200,100%,90%,1) 0%, 
+        hsla(200,100%,70%,1) 15%, 
+        hsla(200,100%,60%,.3) 28%, 
+        hsla(200,100%,30%,0) 70% 
+    );
+    background-repeat: no-repeat;
+    transition: background-position .15s cubic-bezier(.8, 0, 1, 1),
+        transform .25s cubic-bezier(.8, 0, 1, 1);
+    -webkit-transition: background-position .15s cubic-bezier(.8, 0, 1, 1),
+        -webkit-transform .25s cubic-bezier(.8, 0, 1, 1);
+    outline: none;
+}
+
+.input:checked {
+    transition: background-position .2s .15s cubic-bezier(0, 0, .2, 1),
+        transform .25s cubic-bezier(0, 0, .2, 1);
+    -webkit-transition: background-position .2s .15s cubic-bezier(0, 0, .2, 1),
+        -webkit-transform .25s cubic-bezier(0, 0, .2, 1);
+}
+
+.input:active {
+    -webkit-transform: scale(1.5);
+    transform: scale(1.5);
+    -webkit-transition: -webkit-transform .1s cubic-bezier(0, 0, .2, 1);
+    transition: transform .1s cubic-bezier(0, 0, .2, 1);
+}
+
+/* The direction logic for both buttons */
+.input,
+.input:active {
+    background-position: 24px 0;
+}
+
+/* First radio button (Decode) */
+.radio-label:first-child .input:checked {
+    background-position: 0 0;
+}
+
+/* Second radio button (Encode) */
+.radio-label:last-child .input {
+    background-position: -24px 0;
+}
+.radio-label:last-child .input:checked {
+    background-position: 0 0;
+}
+
+
+/* For better browser compatibility */
+@supports (-webkit-appearance: none) {
+    .input {
+        background-image: radial-gradient( 
+            hsla(200,100%,90%,1) 0%, 
+            hsla(200,100%,70%,1) 15%, 
+            hsla(200,100%,60%,.3) 28%, 
+            hsla(200,100%,30%,0) 70% 
+        );
+    }
+}
+
+/* Add button styling */
+button {
+    background-color: rgba(137, 167, 152, 0.5);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: rgba(137, 167, 152, 0.7);
+}
