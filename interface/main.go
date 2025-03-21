@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"os"
 	"os/exec"
-	"time"
 	"strings"
+	"time"
 )
 
 type PageData struct {
@@ -34,13 +34,13 @@ func executeDecoderCLI(mode string, input string) (string, error) {
 	}
 
 	// Use proper flags: -en/-de for mode and -m for multiline
-	cmd := exec.Command("../decoder/diamond-decoder", modeFlag, "-m")
+	cmd := exec.Command("../decoder/diamond-decoder", "-m", modeFlag)
 
-	  // Create pipes for stdin, stdout, and stderr
-	  stdin, err := cmd.StdinPipe()
-	  if err != nil {
-		  return "", fmt.Errorf("error creating stdin pipe: %v", err)
-	  }
+	// Create pipes for stdin, stdout, and stderr
+	stdin, err := cmd.StdinPipe()
+	if err != nil {
+		return "", fmt.Errorf("error creating stdin pipe: %v", err)
+	}
 
 	var out bytes.Buffer
 	var stderr bytes.Buffer
@@ -48,23 +48,23 @@ func executeDecoderCLI(mode string, input string) (string, error) {
 	cmd.Stderr = &stderr
 
 	// Start the command
-    if err := cmd.Start(); err != nil {
-        return "", fmt.Errorf("error starting command: %v", err)
-    }
+	if err := cmd.Start(); err != nil {
+		return "", fmt.Errorf("error starting command: %v", err)
+	}
 
-    // Write the input to stdin
-    _, err = stdin.Write([]byte(input + "\n\n"))
-    if err != nil {
-        return "", fmt.Errorf("error writing to stdin: %v", err)
-    }
+	// Write the input to stdin
+	_, err = stdin.Write([]byte(input + "\n\n"))
+	if err != nil {
+		return "", fmt.Errorf("error writing to stdin: %v", err)
+	}
 
-    // Close stdin to signal we're done writing
-    stdin.Close()
+	// Close stdin to signal we're done writing
+	stdin.Close()
 
-    // Wait for the command to complete
-    if err := cmd.Wait(); err != nil {
-        return "", fmt.Errorf("error waiting for command: %v: %s", err, stderr.String())
-    }
+	// Wait for the command to complete
+	if err := cmd.Wait(); err != nil {
+		return "", fmt.Errorf("error waiting for command: %v: %s", err, stderr.String())
+	}
 
 	// get raw output
 	rawOutput := out.String()
@@ -74,15 +74,15 @@ func executeDecoderCLI(mode string, input string) (string, error) {
 	// cleanOutput = strings.TrimSpace(cleanOutput)
 
 	/*
-	// Old code structure below, saved for convinience
-	// Debug print to see exact command being executed
-	fmt.Printf("Executing command: %v with args: %v\n", cmd.Path, cmd.Args)
+		// Old code structure below, saved for convinience
+		// Debug print to see exact command being executed
+		fmt.Printf("Executing command: %v with args: %v\n", cmd.Path, cmd.Args)
 
-	err := cmd.Run()
-	if err != nil {
-		return "", fmt.Errorf("error: %v: %s", err, stderr.String())
-	}
-		*/
+		err := cmd.Run()
+		if err != nil {
+			return "", fmt.Errorf("error: %v: %s", err, stderr.String())
+		}
+	*/
 
 	return cleanOutput, nil
 }

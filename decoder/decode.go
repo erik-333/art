@@ -36,16 +36,20 @@ func decode(input string) (string, error) {
 		return "", fmt.Errorf("%s", red+"Error! :O , mismatched brackets in input"+reset)
 	}
 
+	
 	// Check if the input contains a pattern without space between arguments
 	if noSpacePattern.MatchString(input) {
 		return "", fmt.Errorf("%s", red+"Error! :O , arguments not separated by space"+reset)
 	}
-
+	
+	
+	/*
 	// Check for empty second argument
 	if emptySecondArgPattern.MatchString(input) {
 		return "", fmt.Errorf("%s", red+"Error! :O , empty second argument"+reset)
 	}
-
+	*/
+	
 	if singleArgPattern.MatchString(input) {
 		return "", fmt.Errorf("%s", red+"Error! :O , empty second argument"+reset)
 	}
@@ -55,6 +59,9 @@ func decode(input string) (string, error) {
 	for _, match := range matches {
 		if _, err := strconv.Atoi(match[1]); err != nil {
 			return "", fmt.Errorf("%s", red+"Error! :O , first argument must be a number\n"+reset)
+		}
+		if len(matches) == len(match[1]) + 1 {
+			return "", fmt.Errorf("%s", red+"Error! :O, empty second argument"+reset)
 		}
 	}
 
