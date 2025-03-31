@@ -19,7 +19,8 @@ var ptrn = regexp.MustCompile(`\[(\d+) ([^\]]+)]`)
 var validatePtrn = regexp.MustCompile(`\[(\S+)(?:\s*)?\]`)
 
 // pattern for empty 2nd arg checking (eg. [2 ])
-var emptySecondArgPattern = regexp.MustCompile(`\[\d+\s+\]`)
+// Update the pattern to match exactly one space between number and closing bracket
+var emptySecondArgPattern = regexp.MustCompile(`\[\d+\x20\]`)
 
 // pattern for input without space
 var noSpacePattern = regexp.MustCompile(`\[\d+[^\s\]]+\]`)
@@ -33,35 +34,31 @@ func decode(input string) (string, error) {
 
 	// check for mismatched brackets
 	if strings.Count(input, "[") != strings.Count(input, "]") {
-		return "", fmt.Errorf("%s", red+"Error! :O , mismatched brackets in input"+reset)
+		return "", fmt.Errorf("Error! :O , mismatched brackets in input")
 	}
 
 	
 	// Check if the input contains a pattern without space between arguments
 	if noSpacePattern.MatchString(input) {
-		return "", fmt.Errorf("%s", red+"Error! :O , arguments not separated by space"+reset)
+		return "", fmt.Errorf("Error! :O , arguments not separated by space")
 	}
 	
-	
-	/*
 	// Check for empty second argument
 	if emptySecondArgPattern.MatchString(input) {
-		return "", fmt.Errorf("%s", red+"Error! :O , empty second argument"+reset)
+		return "", fmt.Errorf("Error! :O , empty second argument")
 	}
-	*/
+	
 	
 	if singleArgPattern.MatchString(input) {
-		return "", fmt.Errorf("%s", red+"Error! :O , empty second argument"+reset)
+		return "", fmt.Errorf("Error! :O , empty second argument")
 	}
+
 
 	// first do validation using validatePtrn
 	matches := validatePtrn.FindAllStringSubmatch(input, -1)
 	for _, match := range matches {
 		if _, err := strconv.Atoi(match[1]); err != nil {
-			return "", fmt.Errorf("%s", red+"Error! :O , first argument must be a number\n"+reset)
-		}
-		if len(matches) == len(match[1]) + 1 {
-			return "", fmt.Errorf("%s", red+"Error! :O, empty second argument"+reset)
+			return "", fmt.Errorf("Error! :O , first argument must be a number\n")
 		}
 	}
 
@@ -69,16 +66,16 @@ func decode(input string) (string, error) {
 	result := ptrn.ReplaceAllStringFunc(input, func(match string) string {
 		matches := ptrn.FindStringSubmatch(match)
 		if len(matches) != 3 {
-			fmt.Println(red + "Error! :O , invalid pattern format" + reset)
+			fmt.Println("Error! :O , invalid pattern format")
 		}
 
 		count, err := strconv.Atoi(matches[1])
 		if err != nil {
-			fmt.Println(red + "Error! :O , invalid number format" + reset)
+			fmt.Println("Error! :O , invalid number format")
 		}
 
 		if count <= 0 {
-			fmt.Println(red + "Error! :O , count must be positive" + reset)
+			fmt.Println("Error! :O , count must be positive")
 		}
 
 		return strings.Repeat(matches[2], count)

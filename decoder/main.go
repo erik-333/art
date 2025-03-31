@@ -7,12 +7,14 @@ import (
 	"strings"
 )
 
+/*
 var (
 	red    = "\033[31m"
 	yellow = "\033[33m"
 	purple = "\033[35m"
 	reset  = "\033[0m"
 )
+*/
 
 func main() {
 	doubleFlag := flag.Bool("2x", false, "double flag")
@@ -25,17 +27,17 @@ func main() {
 
 	args := flag.Args()
 	if len(args) < 1 && !*multiflag && !*helpFlag {
-		fmt.Println(red + "Error! :O\n" + reset)
-		fmt.Println(yellow + "Usage: go run . -de|-en <text>")
+		fmt.Println("Error! :O\n")
+		fmt.Println("Usage: go run . -de|-en <text>")
 		fmt.Println("-de flag is for decode mode and -en is for encode mode, if want to double size, use -2x")
-		fmt.Println("for multiline input, use -m" + reset)
+		fmt.Println("for multiline input, use -m")
 		return
 	}
 
 	if *helpFlag {
-		fmt.Println(yellow + "Usage: go run . -de|-en <text>")
+		fmt.Println("Usage: go run . -de|-en <text>")
 		fmt.Println("-de flag is for decode mode and -en is for encode mode, if want to double size, use -2x")
-		fmt.Println("for multiline input, use -m" + reset)
+		fmt.Println("for multiline input, use -m")
 		os.Exit(0)
 	}
 
@@ -44,7 +46,7 @@ func main() {
 		input = multiLine()
 		// check if any input
 		if len(input) == 0 || (len(input) == 1 && input == "") {
-			fmt.Println(red + "No input provided\n" + reset)
+			fmt.Println("No input provided\n")
 			return
 		}
 
@@ -73,7 +75,7 @@ func main() {
 
 			// check if any input
 			if len(lines) == 0 || (len(lines) == 1 && lines[0] == "") {
-				fmt.Println(red + "No input provided\n" + reset)
+				fmt.Println("No input provided\n")
 				return
 			}
 
@@ -86,8 +88,8 @@ func main() {
 				decoded, err := decode(line)
 				if err != nil {
 					// debug info
-					fmt.Printf(red+"Failed to decode line %d: %q\n"+reset, i+1, line)
-					fmt.Printf(red+"Error! :O , details: %v\n"+reset, err)
+					fmt.Printf("Failed to decode line %d: %q\n", i+1, line)
+					fmt.Printf("Error! :O , details: %v\n", err)
 					return
 				}
 				decodedLines = append(decodedLines, decoded)
@@ -96,18 +98,18 @@ func main() {
 				fmt.Printf("\n")
 				fmt.Println(strings.Join(decodedLines, "\n"))
 			} else {
-				fmt.Println(red + "No valid lines found\n" + reset)
+				fmt.Println("No valid lines found\n")
 				return
 			}
 		} else {
 			if strings.TrimSpace(input) == "" {
-				fmt.Println(red + "Error! :0 , no input\n" + reset)
+				fmt.Println("Error! :0 , no input\n")
 				return
 			}
 			result, err := decode(input)
 			if err != nil {
-				fmt.Printf(red+"Failed to decode: %q\n\n"+reset, input)
-				fmt.Printf(red+"Error! :O , details: %v\n"+reset, err)
+				fmt.Printf("Failed to decode: %q\n\n", input)
+				fmt.Printf("Error! :O , details: %v\n", err)
 				return
 			}
 			fmt.Printf("\n")
@@ -117,10 +119,10 @@ func main() {
 		fmt.Printf("\n")
 		fmt.Println(encode(input))
 	} else if !*decodeFlag && !*encodeFlag && !*doubleFlag && !*multiflag {
-		fmt.Println(red + "Error! :O\n" + reset)
-		fmt.Println(yellow + "Usage: go run . -de|-en <text>")
+		fmt.Println("Error! :O\n")
+		fmt.Println("Usage: go run . -de|-en <text>")
 		fmt.Println("-de flag is for decode mode and -en is for encode mode, if want to double size, use -2x")
-		fmt.Println("for multiline input, use -m" + reset)
+		fmt.Println("for multiline input, use -m")
 		os.Exit(1)
 	}
 }
