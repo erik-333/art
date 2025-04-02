@@ -15,7 +15,7 @@ func multiLine() string {
 	for scanner.Scan() {
 		line := scanner.Text()
 		if line == "" {
-			break
+			continue
 		}
 		// Only remove escape sequences while preserving other characters
 		// Preserve the square bracket
