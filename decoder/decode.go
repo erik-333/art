@@ -1,7 +1,6 @@
 package main
 
 import (
-	"errors"
 	"fmt"
 	"regexp"
 	"strconv"
@@ -37,55 +36,55 @@ func decode(input string) (string, error) {
 		return "", fmt.Errorf("Error! :O , mismatched brackets in input")
 	}
 
-	
-	// Check if the input contains a pattern without space between arguments
-	if noSpacePattern.MatchString(input) {
-		return "", fmt.Errorf("Error! :O , arguments not separated by space")
-	}
-	
-	
-	// Check for empty second argument
-	if emptySecondArgPattern.MatchString(input) {
-		return "", fmt.Errorf("Error! :O , empty second argument")
-	}
-	
-	
-	
-	if singleArgPattern.MatchString(input) {
-		return "", fmt.Errorf("Error! :O , empty second argument")
-	}
+	// Split the input into lines for processing
+	lines := strings.Split(input, "\n")
+	var results []string
 
-
-	// first do validation using validatePtrn
-	matches := validatePtrn.FindAllStringSubmatch(input, -1)
-	for _, match := range matches {
-		if _, err := strconv.Atoi(match[1]); err != nil {
-			return "", fmt.Errorf("Error! :O , first argument must be a number\n")
-		}
-	}
-
-	// If validation passes, proceed with the actual replacement using ptrn
-	result := ptrn.ReplaceAllStringFunc(input, func(match string) string {
-		matches := ptrn.FindStringSubmatch(match)
-		if len(matches) != 3 {
-			fmt.Println("Error! :O , invalid pattern format")
+	for _, line := range lines {
+		// Check if the line contains a pattern without space between arguments
+		if noSpacePattern.MatchString(line) {
+			return "", fmt.Errorf("Error! :O , arguments not separated by space")
 		}
 
-		count, err := strconv.Atoi(matches[1])
-		if err != nil {
-			fmt.Println("Error! :O , invalid number format")
+		// Check for empty second argument
+		if emptySecondArgPattern.MatchString(line) {
+			return "", fmt.Errorf("Error! :O , empty second argument")
 		}
 
-		if count <= 0 {
-			fmt.Println("Error! :O , count must be positive")
+		if singleArgPattern.MatchString(line) {
+			return "", fmt.Errorf("Error! :O , empty second argument")
 		}
 
-		return strings.Repeat(matches[2], count)
-	})
+		// Validate the line using validatePtrn
+		matches := validatePtrn.FindAllStringSubmatch(line, -1)
+		for _, match := range matches {
+			if _, err := strconv.Atoi(match[1]); err != nil {
+				return "", fmt.Errorf("Error! :O , first argument must be a number\n")
+			}
+		}
 
-	if strings.Contains(result, "Error:") {
-		return "", errors.New(result)
+		// Perform the actual replacement using ptrn
+		result := ptrn.ReplaceAllStringFunc(line, func(match string) string {
+			matches := ptrn.FindStringSubmatch(match)
+			if len(matches) != 3 {
+				fmt.Println("Error! :O , invalid pattern format")
+			}
+
+			count, err := strconv.Atoi(matches[1])
+			if err != nil {
+				fmt.Println("Error! :O , invalid number format")
+			}
+
+			if count <= 0 {
+				fmt.Println("Error! :O , count must be positive")
+			}
+
+			return strings.Repeat(matches[2], count)
+		})
+
+		results = append(results, result)
 	}
 
-	return result, nil
+	// Join the processed lines back together
+	return strings.Join(results, "\n"), nil
 }

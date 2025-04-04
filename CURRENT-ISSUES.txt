@@ -1,6 +1,0 @@
-When doing sloppy copying and pasting in the web interface tool, an extra line can accidentally be copied, resulting in the program thinking the line is empty, - 
-Thus outputting an error : No input provided ; you can fix this by checking NOT if only current line is empty, rather checking next line for "empty" aswell, - 
-another possible fix could be adding a copy to clipboard button which avoids this aswell, but first fix might still be necessary, because the user has free will xDDD, -
-and might provoke the tool and still copy and paste "sloppy-style".
-
-It responds to len(input) == 0 , which means it thinks the first is the whole input and does not bother to read more lines.
