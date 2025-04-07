@@ -12,14 +12,18 @@ func encode(input string) string {
 	var result strings.Builder
 	runes := []rune(input)
 	n := len(runes)
+	const maxAllowedSeqLen = 73 // Limit of terminal width, any sequence longer will result in non-optimal compression
 
 	for i := 0; i < n; {
-		// Max possible sequence length
+		// Max possible sequence length - take minimum of terminal width and half remaining input
 		maxSeqLen := (n - i) / 2
-		// Length of the best repeating sequence found
+		if maxSeqLen > maxAllowedSeqLen {
+			maxSeqLen = maxAllowedSeqLen
+		}
+
 		bestSeqLen := 1
-		// Number of repetitions for the best sequence
 		bestRepCount := 1
+		bestRatio := 0.0
 
 		// Try sequences of different lengths
 		for seqLen := 1; seqLen <= maxSeqLen; seqLen++ {
@@ -33,15 +37,21 @@ func encode(input string) string {
 				pos += seqLen
 			}
 
-			// Update best sequence if current one is better
-			if count > 1 && count*seqLen > bestRepCount*bestSeqLen {
+			// Calculate compression ratio
+			originalLen := count * seqLen
+			compressedLen := len(fmt.Sprintf("[%d %s]", count, seq))
+			ratio := float64(originalLen) / float64(compressedLen)
+
+			// Update best sequence if current one has better compression ratio
+			if count > 1 && ratio > bestRatio {
 				bestSeqLen = seqLen
 				bestRepCount = count
+				bestRatio = ratio
 			}
 		}
 
 		// If we found a repeating sequence worth compressing
-		if bestRepCount > 1 && bestRepCount*bestSeqLen > 3 {
+		if bestRepCount > 1 && bestRatio > 1.25 {
 			seq := string(runes[i : i+bestSeqLen])
 			result.WriteString(fmt.Sprintf("[%d %s]", bestRepCount, seq))
 			i += bestRepCount * bestSeqLen
