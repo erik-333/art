@@ -95,7 +95,7 @@ func decoder(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Get form values
-	input := r.FormValue("artInput")
+	input := r.FormValue("text")
 	mode := r.FormValue("mode") // "decode" or "encode"
 
 	if input == "" {

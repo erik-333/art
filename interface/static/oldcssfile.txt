@@ -30,23 +30,18 @@ textarea {
 
 .results {
     margin-top: 30px;
-    padding: 20px;
-    background-color: rgba(4, 79, 92, 0.1);
-    color: rgba(0, 255, 255, 0.9);
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
 }
 
 .art-output {
-    color: rgba(0, 255, 255, 1);
-    background-color: rgba(4, 79, 92, 0.05);
+    color: rgb(255, 255, 255);
+    background: rgba(137, 167, 152, 0.5);
     padding: 20px;
     overflow-x: auto;
     white-space: pre;
 }
 
 .status-code {
-    color: rgba(0, 255, 255, 0.9);
+    color: rgb(137, 167, 152);
     margin-bottom: 10px;
 }
 
@@ -140,7 +135,8 @@ textarea {
         );
     }
 }
-/* radio button styling */
+
+/* Add button styling */
 button {
     background-color: rgba(4, 79, 92, 0.5);
     color: white;
@@ -153,34 +149,6 @@ button {
 button:hover {
     background-color: rgba(4, 218, 255, 0.6);
 }
-
-/* Process button styling */
-#btn {
-    padding: 10px 20px;
-    text-transform: uppercase;
-    border-radius: 8px;
-    font-size: 17px;
-    font-weight: 500;
-    color: #ffffff80;
-    text-shadow: none;
-    background: transparent;
-    cursor: pointer;
-    box-shadow: transparent;
-    border: 1px solid #ffffff80;
-    transition: 0.5s ease;
-    user-select: none;
-  }
-  
-  #btn:hover,
-  #btn:focus {
-    color: #ffffff;
-    background: #00ffffd5;
-    border: 1px solid #00ffffd5;
-    text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff, 0 0 20px #ffffff;
-    box-shadow: 0 0 5px #00ffffd5, 0 0 20px #00ffffd5, 0 0 50px #00ffffd5,
-      0 0 100px #00ffffd5;
-  }
-  
 
 .text-input {
   background-color: #0000002c;
@@ -198,7 +166,7 @@ button:hover {
 .text-input:focus {
   color: rgb(0, 255, 255);
   background-color: #00ffea2c;
-  outline-color: #00ffffd5;
+  outline-color: rgb(0, 255, 255);
   box-shadow: -3px -3px 15px rgb(0, 255, 255);
   transition: .1s;
   transition-property: box-shadow;

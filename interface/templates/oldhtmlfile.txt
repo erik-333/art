@@ -33,7 +33,7 @@
                     required
                 ></textarea>
             </div>
-            <button id="btn" type="submit">Process</button>
+            <button type="submit">Process</button>
         </form>
         
         <!-- Results Section -->
