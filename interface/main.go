@@ -71,18 +71,6 @@ func executeDecoderCLI(mode string, input string) (string, error) {
 
 	// remove prompt message
 	cleanOutput := strings.TrimPrefix(rawOutput, "Enter your text, press Enter twice to finish")
-	// cleanOutput = strings.TrimSpace(cleanOutput)
-
-	/*
-		// Old code structure below, saved for convinience
-		// Debug print to see exact command being executed
-		fmt.Printf("Executing command: %v with args: %v\n", cmd.Path, cmd.Args)
-
-		err := cmd.Run()
-		if err != nil {
-			return "", fmt.Errorf("error: %v: %s", err, stderr.String())
-		}
-	*/
 
 	return cleanOutput, nil
 }

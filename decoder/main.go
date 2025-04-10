@@ -7,15 +7,6 @@ import (
 	"strings"
 )
 
-/*
-var (
-	red    = "\033[31m"
-	yellow = "\033[33m"
-	purple = "\033[35m"
-	reset  = "\033[0m"
-)
-*/
-
 func main() {
 	doubleFlag := flag.Bool("2x", false, "double flag")
 	decodeFlag := flag.Bool("de", false, "decode mode")
