@@ -3,6 +3,7 @@
 A simple server that communicates with a command-line tool in order to Decode/Encode text-based art
 
 ## Technologies used
+
 - Uiverse.io , I styled the interface with open-source code from here
 - Radio buttons by Shoh2008
 - Input form by Yaseen549
@@ -25,26 +26,32 @@ Before running the server, make sure you have the following installed and or upd
 
 ### Steps to use and run
 
-1. Clone the repo:
+## Clone the repo:
+
 ````
 git clone https://gitea.koodsisu.fi/emilsundkvist/art.git
 cd art
 ````
-2. Run the project: Navigate to the interface directory
+
+## Build the project
+
+``
+cd decoder
+go build -o diamond-decoder
+``
+
+## Run the project: Navigate to the interface directory
+
 ````
 cd interface
 go run .
 ````
-## Build the project (Optional), otherwise skip to Usage
-If you want to you can also build the project:
-````
-cd decoder
-go build -o diamond-decoder
-````
+
 
 ## Usage
 
 ### Encoded text
+
 - Encoded patterns have to be inside brackets, if brackets are mismatched it will return an error
 - There are two arguments inside those brackets, separated by a SINGLE space. Everything proceding will be considered part of the pattern to be expanded
 - First argument has to be a number, otherwise it is invalid
@@ -52,6 +59,7 @@ go build -o diamond-decoder
 - Square brackets are not printable for simplicity
 
 ## Example test cases
+
 ````
 [8 ⣿]⠟⠋⠁[8 ⠀]⠉⠻⣿
 [7 ⣿]⠁[13 ⠀]⢺⣿
@@ -109,6 +117,38 @@ Will output:
 [7  ]_\/\\\_\///\\\[2 __\///\\\\\/__]_\//[7 \]/\\_
 [8  ][2 _\///___][2 __\/////______]\[7 /]\//__
 ````
+
+### Testing
+
+These tests should be ran in interface directory, 
+you have to open another terminal window separate to where the server is running.
+
+## GET / endpoint (Should return HTTP 200):
+
+````
+curl -I http://localhost:8080/
+````
+
+## POST /decoder with valid input(Should return HTTP 202):
+
+````
+curl -X POST -d "text=your_encoded_text&mode=decode" http://localhost:8080/decoder -i
+````
+
+## POST /decoder with invalid input (Should return HTTP 400):
+
+````
+curl -X POST -d "text=&mode=decode" http://localhost:8080/decoder -i
+````
+
+## GET / return main page:
+
+````
+curl http://localhost:8080/ | grep -i "diamond decoder"
+````
+
+
+
 
 ## Author
 
