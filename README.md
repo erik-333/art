@@ -35,10 +35,10 @@ cd art
 
 ## Build the project
 
-``
+````
 cd decoder
 go build -o diamond-decoder
-``
+````
 
 ## Run the project: Navigate to the interface directory
 
