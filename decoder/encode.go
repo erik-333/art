@@ -51,7 +51,7 @@ func encode(input string) string {
 		}
 
 		// If we found a repeating sequence worth compressing
-		if bestRepCount > 1 && bestRatio > 1.25 {
+		if bestRepCount > 1 && bestRatio >= 0.5 {
 			seq := string(runes[i : i+bestSeqLen])
 			result.WriteString(fmt.Sprintf("[%d %s]", bestRepCount, seq))
 			i += bestRepCount * bestSeqLen
